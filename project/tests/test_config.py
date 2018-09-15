@@ -1,6 +1,9 @@
 from flask import current_app
 from flask_testing import TestCase
-from project import app
+from project import create_app
+
+app = create_app()
+
 
 class TestDevelopmentConfig(TestCase):
     def create_app(self):
@@ -16,6 +19,7 @@ class TestDevelopmentConfig(TestCase):
             'mysql+pymysql://root:root321@users-db:3306/users_dev'
         )
 
+
 class TestTestingConfig(TestCase):
     def create_app(self):
         app.config.from_object('project.config.TestingConfig')
@@ -30,6 +34,7 @@ class TestTestingConfig(TestCase):
             app.config['SQLALCHEMY_DATABASE_URI'] ==
             'mysql+pymysql://root:root321@users-db:3306/users_test'
         )
+
 
 class TestProductionConfig(TestCase):
     def create_app(self):
